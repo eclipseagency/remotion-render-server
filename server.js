@@ -101,6 +101,11 @@ app.post('/render', async (req, res) => {
         serveUrl: bundleLocation,
         id: 'DynamicReel',
         inputProps,
+        chromiumOptions: {
+          ...(chromiumPath ? { executablePath: chromiumPath } : {}),
+          gl: 'angle',
+        },
+        timeoutInMilliseconds: 120000,
       });
 
       await renderMedia({
@@ -109,7 +114,11 @@ app.post('/render', async (req, res) => {
         codec: 'h264',
         outputLocation: outputFile,
         inputProps,
-        chromiumOptions: chromiumPath ? { executablePath: chromiumPath } : undefined,
+        chromiumOptions: {
+          ...(chromiumPath ? { executablePath: chromiumPath } : {}),
+          gl: 'angle',
+        },
+        timeoutInMilliseconds: 120000,
         onProgress: ({ progress }) => {
           const job = jobs.get(jobId);
           if (job) job.progress = Math.round(progress * 100);

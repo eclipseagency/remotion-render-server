@@ -68,8 +68,8 @@ app.post('/render', async (req, res) => {
     format = '9:16', // 9:16 (story/reel) or 4:5 (post)
   } = req.body;
 
-  if (!designUrl) {
-    return res.status(400).json({ error: 'designUrl required' });
+  if (!designUrl && !topic) {
+    return res.status(400).json({ error: 'Need designUrl or topic text' });
   }
 
   const jobId = crypto.randomUUID().slice(0, 8);

@@ -154,6 +154,14 @@ setInterval(() => {
 }, 60000);
 
 const PORT = process.env.PORT || 3100;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Remotion Render Server running on port ${PORT}`);
+  // Pre-bundle on startup so first render is fast
+  console.log('Pre-bundling Remotion project...');
+  try {
+    await getBundled();
+    console.log('Pre-bundle complete — ready for renders.');
+  } catch (e) {
+    console.error('Pre-bundle failed:', e.message);
+  }
 });

@@ -22,6 +22,8 @@ interface Props {
 export const DynamicReel: React.FC<Props> = ({
   designUrl,
   topic,
+  caption,
+  clientName,
   style,
   durationInFrames,
 }) => {
